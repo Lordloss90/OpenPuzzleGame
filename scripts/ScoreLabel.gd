@@ -10,7 +10,7 @@ func _ready():
 func _on_score_changed(amount):
 
 	text = "Score: " + str(GlobalStats.score)
-	if amount > 0:
+	if amount > 0:	#instantiate the score animation
 		var instance = score_up.instantiate()
 		add_child(instance)
 		instance.text = "+" + str(amount)

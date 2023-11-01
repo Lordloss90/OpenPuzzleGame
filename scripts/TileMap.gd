@@ -172,14 +172,14 @@ func check_rows() -> Array:
 
 
 func push_down_rows(full_row):
-		for y in range(full_row, lower_bounds.y -1, -1):
-			for x in range(lower_bounds.x, upper_bounds.x + 1):
-				var target_id = get_cell_source_id(0, Vector2i(x, y - 1))
-				var target_alternative = get_cell_alternative_tile(0, Vector2i(x, y - 1))
-				if target_id == -1:
-					target_id = 0
-					target_alternative = 0
-				set_cell(0, Vector2i(x,y), target_id, Vector2i(0, 0), target_alternative)
+	for y in range(full_row, lower_bounds.y -1, -1):
+		for x in range(lower_bounds.x, upper_bounds.x + 1):
+			var target_id = get_cell_source_id(0, Vector2i(x, y - 1))
+			var target_alternative = get_cell_alternative_tile(0, Vector2i(x, y - 1))
+			if target_id == -1:
+				target_id = 0
+				target_alternative = 0
+			set_cell(0, Vector2i(x,y), target_id, Vector2i(0, 0), target_alternative)
 
 
 

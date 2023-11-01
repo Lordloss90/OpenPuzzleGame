@@ -1,6 +1,8 @@
 extends Node2D
 
-#(0,0) is pivot point of pieces
+
+#These are the basic tetris pieces. Simply defined by an array with positions as Vector2i
+#(0,0) is the pivot point of pieces
 const long_boy = [Vector2i(0,0), Vector2i(-1,0), Vector2i(-2,0), Vector2i(1,0)]
 const z_left = [Vector2i(0,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(1,1)]
 const z_right = [Vector2i(0,0), Vector2i(1,0), Vector2i(0,1), Vector2i(-1,1)]
@@ -9,6 +11,7 @@ const l_left = [Vector2i(0,0), Vector2i(-1,0), Vector2i(1,0), Vector2i(1,1)]
 const l_right = [Vector2i(0,0), Vector2i(-1,0), Vector2i(-1,1), Vector2i(1,0)]
 const cross = [Vector2i(0,0), Vector2i(-1,0), Vector2i(1,0), Vector2i(0,1)]
 
+#Example of extra non-vanilla pieces
 const single = [Vector2i(0,0)]
 const big_chonker = [Vector2i(0,0), Vector2i(-1,0), Vector2i(-2,0), Vector2i(-3,0), Vector2i(1,0), Vector2i(2,0)]
 const u_shape = [Vector2i(0,0), Vector2i(1,0), Vector2i(1,1), Vector2i(-1,0), Vector2i(-1,1)]
@@ -26,9 +29,8 @@ signal piece_moved(direction:Vector2i)
 func _ready():
 	
 	current_cells = get_random_piece(true)
-	
 	old_cells = [] + current_cells
-	
+
 
 
 func get_random_piece(called_by_piece) -> Array:
@@ -42,11 +44,6 @@ func get_random_piece(called_by_piece) -> Array:
 		4: piece += l_left
 		5: piece += l_right
 		6: piece += cross
-		7:
-			match randi() % 3:
-				0: piece += single
-				1: piece += big_chonker
-				2: piece += u_shape
 	if called_by_piece:
 		tile_number = rnd_number + 1
 	else:
@@ -79,6 +76,7 @@ func _process(delta):
 		emit_signal("piece_moved", moved)
 
 
+
 func rotate_clockwise():	#Vectors can easily be rotated by 90 degrees if we either invert x or y and then flip both values.
 	for i in current_cells.size():
 		var new_x = current_cells[i].y * -1
@@ -87,9 +85,11 @@ func rotate_clockwise():	#Vectors can easily be rotated by 90 degrees if we eith
 	emit_signal("piece_moved", Vector2i(0,0))
 
 
+
 func _fall_down_timer_timeout():
 	current_position += Vector2i.DOWN
 	emit_signal("piece_moved", Vector2i.DOWN)
+
 
 
 func _on_horizontal_timer_timeout():
@@ -105,6 +105,7 @@ func _on_horizontal_timer_timeout():
 	$horizontal_timer.start()
 	current_position += moved
 	emit_signal("piece_moved", moved)
+
 
 
 func _on_vertical_timer_timeout():
