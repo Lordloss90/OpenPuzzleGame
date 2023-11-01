@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfssg7p2qtjbs"]
+
+[ext_resource type="Texture2D" uid="uid://c20o26lwm4ejl" path="res://assets/smoke_extra_small.png" id="1_mphwa"]
+[ext_resource type="Script" path="res://scripts/DustParticles.gd" id="2_davoq"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7u6o8"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_gnvoi"]
+_data = [Vector2(0, 0.368421), 0.0, 0.631579, 0, 1, Vector2(1, 1), 0.631579, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_3wqqk"]
+offsets = PackedFloat32Array(0, 0.820809, 1)
+colors = PackedColorArray(1, 1, 1, 0.164706, 1, 1, 1, 0.0470588, 1, 1, 1, 0)
+
+[node name="DustParticles" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_7u6o8")
+emitting = false
+amount = 50
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_mphwa")
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+direction = Vector2(0, 1)
+spread = 75.31
+gravity = Vector2(0, -21.78)
+initial_velocity_min = 20.41
+initial_velocity_max = 25.53
+damping_min = 9.004
+damping_max = 43.367
+scale_amount_min = 0.2
+scale_amount_max = 0.4
+scale_amount_curve = SubResource("Curve_gnvoi")
+color_ramp = SubResource("Gradient_3wqqk")
+anim_offset_max = 1.0
+script = ExtResource("2_davoq")
+
+[node name="EndTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="EndTimer" to="." method="_on_end_timer_timeout"]

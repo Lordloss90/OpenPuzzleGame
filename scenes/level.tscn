@@ -1,0 +1,259 @@
+[gd_scene load_steps=35 format=3 uid="uid://dq05pcnj58yp0"]
+
+[ext_resource type="Texture2D" uid="uid://wyve4t5bny04" path="res://assets/square_background.png" id="1_xhf3q"]
+[ext_resource type="Texture2D" uid="uid://d06j4wddk05w1" path="res://assets/square_moving.png" id="2_in4l7"]
+[ext_resource type="Texture2D" uid="uid://capn7wain57ar" path="res://assets/square_set.png" id="3_mlpdg"]
+[ext_resource type="Script" path="res://scripts/TileMap.gd" id="4_7g47v"]
+[ext_resource type="FontFile" uid="uid://bb7a8k003cowm" path="res://PixelCode.otf" id="5_balqu"]
+[ext_resource type="Script" path="res://scripts/GameOverLabel.gd" id="6_7lc54"]
+[ext_resource type="AudioStream" uid="uid://emu158bea5kj" path="res://sounds/brick_1.mp3" id="7_ib8vf"]
+[ext_resource type="AudioStream" uid="uid://ca6m0r8tlb0jy" path="res://sounds/brick_2.mp3" id="8_5et2v"]
+[ext_resource type="AudioStream" uid="uid://cra73g5gvpity" path="res://sounds/brick_3.mp3" id="9_7lpxd"]
+[ext_resource type="AudioStream" uid="uid://o4mmtu0vohuq" path="res://sounds/brick_light.mp3" id="10_wbwuf"]
+[ext_resource type="AudioStream" uid="uid://fr58u4mb11v6" path="res://sounds/pickupCoin 1.wav" id="11_lfh0k"]
+[ext_resource type="AudioStream" uid="uid://babikxqxjn0yo" path="res://sounds/pickupCoin 2.wav" id="12_bmi6f"]
+[ext_resource type="AudioStream" uid="uid://d4cptc7l5ymlx" path="res://sounds/pickupCoin 3.wav" id="13_beelg"]
+[ext_resource type="AudioStream" uid="uid://cih48v8n7tdo5" path="res://sounds/pickupCoin.wav" id="14_makb8"]
+[ext_resource type="AudioStream" uid="uid://cwujpg3du3lwy" path="res://sounds/failure.wav" id="15_ib4oy"]
+[ext_resource type="Texture2D" uid="uid://tse02s3w55wn" path="res://assets/border_empty.png" id="16_aoedm"]
+[ext_resource type="Script" path="res://scripts/lines_label.gd" id="17_x6twh"]
+[ext_resource type="Script" path="res://scripts/LevelLabel.gd" id="18_wmyot"]
+[ext_resource type="Script" path="res://scripts/ScoreLabel.gd" id="19_qhblf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dchv6"]
+resource_name = "square_background"
+texture = ExtResource("1_xhf3q")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+0:0/0/modulate = Color(0.509804, 0.509804, 0.509804, 1)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kfrkj"]
+resource_name = "square_moving"
+texture = ExtResource("2_in4l7")
+texture_region_size = Vector2i(8, 8)
+0:0/next_alternative_id = 9
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/modulate = Color(0.478431, 0.00392157, 0.980392, 1)
+0:0/2 = 2
+0:0/2/modulate = Color(0, 0.690196, 0.309804, 1)
+0:0/3 = 3
+0:0/3/modulate = Color(0.709804, 0.105882, 0.117647, 1)
+0:0/4 = 4
+0:0/4/modulate = Color(0.85098, 0.458824, 0.117647, 1)
+0:0/5 = 5
+0:0/5/modulate = Color(0.690196, 0.152941, 0.662745, 1)
+0:0/6 = 6
+0:0/6/modulate = Color(0.0941176, 0.666667, 0.729412, 1)
+0:0/7 = 7
+0:0/7/modulate = Color(0.0901961, 0.305882, 0.811765, 1)
+0:0/8 = 8
+0:0/8/modulate = Color(0.843137, 0.839216, 0, 1)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vlx8e"]
+resource_name = "square_set"
+texture = ExtResource("3_mlpdg")
+texture_region_size = Vector2i(8, 8)
+0:0/next_alternative_id = 9
+0:0/0 = 0
+0:0/1 = 1
+0:0/1/modulate = Color(0.478431, 0.00392157, 0.980392, 1)
+0:0/2 = 2
+0:0/2/modulate = Color(0, 0.690196, 0.309804, 1)
+0:0/3 = 3
+0:0/3/modulate = Color(0.709804, 0.105882, 0.117647, 1)
+0:0/4 = 4
+0:0/4/modulate = Color(0.85098, 0.458824, 0.117647, 1)
+0:0/5 = 5
+0:0/5/modulate = Color(0.690196, 0.152941, 0.662745, 1)
+0:0/6 = 6
+0:0/6/modulate = Color(0.0941176, 0.666667, 0.729412, 1)
+0:0/7 = 7
+0:0/7/modulate = Color(0.0901961, 0.305882, 0.811765, 1)
+0:0/8 = 8
+0:0/8/modulate = Color(0.843137, 0.839216, 0, 1)
+
+[sub_resource type="TileSet" id="TileSet_ar2p7"]
+tile_size = Vector2i(8, 8)
+sources/0 = SubResource("TileSetAtlasSource_dchv6")
+sources/2 = SubResource("TileSetAtlasSource_vlx8e")
+sources/1 = SubResource("TileSetAtlasSource_kfrkj")
+
+[sub_resource type="Theme" id="Theme_sbl0n"]
+default_font = ExtResource("5_balqu")
+default_font_size = 18
+
+[sub_resource type="Animation" id="Animation_0rap1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ixe1d"]
+resource_name = "game_over"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qsyxb"]
+_data = {
+"RESET": SubResource("Animation_0rap1"),
+"game_over": SubResource("Animation_ixe1d")
+}
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_218ng"]
+streams_count = 4
+random_volume_offset_db = 0.0
+stream_0/stream = ExtResource("7_ib8vf")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("8_5et2v")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("9_7lpxd")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("10_wbwuf")
+stream_3/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mii0k"]
+streams_count = 4
+random_pitch = 2.06
+random_volume_offset_db = 0.0
+stream_0/stream = ExtResource("11_lfh0k")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("12_bmi6f")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("13_beelg")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("14_makb8")
+stream_3/weight = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vn3po"]
+
+[sub_resource type="Theme" id="Theme_5hpxm"]
+default_font = ExtResource("5_balqu")
+default_font_size = 10
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_vn3po")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g4w5y"]
+
+[sub_resource type="Theme" id="Theme_d5o15"]
+default_font = ExtResource("5_balqu")
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_7twqa"]
+default_font = ExtResource("5_balqu")
+default_font_size = 10
+
+[node name="Level" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(-1, 0)
+tile_set = SubResource("TileSet_ar2p7")
+format = 2
+layer_0/tile_data = PackedInt32Array(393227, 0, 0, 458763, 0, 0, 524299, 0, 0, 589835, 0, 0, 655371, 0, 0, 720907, 0, 0, 786443, 0, 0, 851979, 0, 0, 917515, 0, 0, 983051, 0, 0, 1048587, 0, 0, 1114123, 0, 0, 1179659, 0, 0, 1245195, 0, 0, 1310731, 0, 0, 1376267, 0, 0, 1441803, 0, 0, 1507339, 0, 0, 1572875, 0, 0, 1638411, 0, 0, 393228, 0, 0, 458764, 0, 0, 524300, 0, 0, 589836, 0, 0, 655372, 0, 0, 720908, 0, 0, 786444, 0, 0, 851980, 0, 0, 917516, 0, 0, 983052, 0, 0, 1048588, 0, 0, 1114124, 0, 0, 1179660, 0, 0, 1245196, 0, 0, 1310732, 0, 0, 1376268, 0, 0, 1441804, 0, 0, 1507340, 0, 0, 1572876, 0, 0, 1638412, 0, 0, 393229, 0, 0, 458765, 0, 0, 524301, 0, 0, 589837, 0, 0, 655373, 0, 0, 720909, 0, 0, 786445, 0, 0, 851981, 0, 0, 917517, 0, 0, 983053, 0, 0, 1048589, 0, 0, 1114125, 0, 0, 1179661, 0, 0, 1245197, 0, 0, 1310733, 0, 0, 1376269, 0, 0, 1441805, 0, 0, 1507341, 0, 0, 1572877, 0, 0, 1638413, 0, 0, 393230, 0, 0, 458766, 0, 0, 524302, 0, 0, 589838, 0, 0, 655374, 0, 0, 720910, 0, 0, 786446, 0, 0, 851982, 0, 0, 917518, 0, 0, 983054, 0, 0, 1048590, 0, 0, 1114126, 0, 0, 1179662, 0, 0, 1245198, 0, 0, 1310734, 0, 0, 1376270, 0, 0, 1441806, 0, 0, 1507342, 0, 0, 1572878, 0, 0, 1638414, 0, 0, 393231, 0, 0, 458767, 0, 0, 524303, 0, 0, 589839, 0, 0, 655375, 0, 0, 720911, 0, 0, 786447, 0, 0, 851983, 0, 0, 917519, 0, 0, 983055, 0, 0, 1048591, 0, 0, 1114127, 0, 0, 1179663, 0, 0, 1245199, 0, 0, 1310735, 0, 0, 1376271, 0, 0, 1441807, 0, 0, 1507343, 0, 0, 1572879, 0, 0, 1638415, 0, 0, 393232, 0, 0, 458768, 0, 0, 524304, 0, 0, 589840, 0, 0, 655376, 0, 0, 720912, 0, 0, 786448, 0, 0, 851984, 0, 0, 917520, 0, 0, 983056, 0, 0, 1048592, 0, 0, 1114128, 0, 0, 1179664, 0, 0, 1245200, 0, 0, 1310736, 0, 0, 1376272, 0, 0, 1441808, 0, 0, 1507344, 0, 0, 1572880, 0, 0, 1638416, 0, 0, 393233, 0, 0, 458769, 0, 0, 524305, 0, 0, 589841, 0, 0, 655377, 0, 0, 720913, 0, 0, 786449, 0, 0, 851985, 0, 0, 917521, 0, 0, 983057, 0, 0, 1048593, 0, 0, 1114129, 0, 0, 1179665, 0, 0, 1245201, 0, 0, 1310737, 0, 0, 1376273, 0, 0, 1441809, 0, 0, 1507345, 0, 0, 1572881, 0, 0, 1638417, 0, 0, 393234, 0, 0, 458770, 0, 0, 524306, 0, 0, 589842, 0, 0, 655378, 0, 0, 720914, 0, 0, 786450, 0, 0, 851986, 0, 0, 917522, 0, 0, 983058, 0, 0, 1048594, 0, 0, 1114130, 0, 0, 1179666, 0, 0, 1245202, 0, 0, 1310738, 0, 0, 1376274, 0, 0, 1441810, 0, 0, 1507346, 0, 0, 1572882, 0, 0, 1638418, 0, 0, 393235, 0, 0, 458771, 0, 0, 524307, 0, 0, 589843, 0, 0, 655379, 0, 0, 720915, 0, 0, 786451, 0, 0, 851987, 0, 0, 917523, 0, 0, 983059, 0, 0, 1048595, 0, 0, 1114131, 0, 0, 1179667, 0, 0, 1245203, 0, 0, 1310739, 0, 0, 1376275, 0, 0, 1441811, 0, 0, 1507347, 0, 0, 1572883, 0, 0, 1638419, 0, 0, 393236, 0, 0, 458772, 0, 0, 524308, 0, 0, 589844, 0, 0, 655380, 0, 0, 720916, 0, 0, 786452, 0, 0, 851988, 0, 0, 917524, 0, 0, 983060, 0, 0, 1048596, 0, 0, 1114132, 0, 0, 1179668, 0, 0, 1245204, 0, 0, 1310740, 0, 0, 1376276, 0, 0, 1441812, 0, 0, 1507348, 0, 0, 1572884, 0, 0, 1638420, 0, 0, 524329, 2, 65536, 589865, 2, 65536, 589866, 2, 65536, 655402, 2, 65536, 524333, 2, 131072, 524334, 2, 131072, 524335, 2, 131072, 589870, 2, 131072, 720940, 2, 196608, 786476, 2, 196608, 852012, 2, 196608, 917548, 2, 196608, 786479, 2, 262144, 786480, 2, 262144, 786481, 2, 262144, 852017, 2, 262144, 655410, 2, 327680, 589874, 2, 327680, 524338, 2, 327680, 524339, 2, 327680, 393260, 2, 393216, 393261, 2, 393216, 393262, 2, 393216, 327726, 2, 393216, 327725, 2, 393216, 327724, 2, 393216, 852008, 2, 458752, 917544, 2, 458752, 983080, 2, 458752, 1048616, 2, 458752, 1048617, 2, 458752, 852020, 2, 524288, 852021, 2, 524288, 917557, 2, 524288, 917558, 2, 524288)
+script = ExtResource("4_7g47v")
+
+[node name="GameOverLabel" type="Label" parent="TileMap"]
+visible = false
+offset_left = 105.0
+offset_top = 104.0
+offset_right = 153.0
+offset_bottom = 146.0
+theme = SubResource("Theme_sbl0n")
+text = "GAME
+OVER"
+script = ExtResource("6_7lc54")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TileMap/GameOverLabel"]
+libraries = {
+"": SubResource("AnimationLibrary_qsyxb")
+}
+
+[node name="BlockPlaceSoundPlayer" type="AudioStreamPlayer" parent="TileMap"]
+stream = SubResource("AudioStreamRandomizer_218ng")
+volume_db = -4.483
+
+[node name="RowClearPlayer" type="AudioStreamPlayer" parent="TileMap"]
+stream = SubResource("AudioStreamRandomizer_mii0k")
+volume_db = -17.0
+
+[node name="GameEndPlayer" type="AudioStreamPlayer" parent="TileMap"]
+stream = ExtResource("15_ib4oy")
+volume_db = -15.0
+max_polyphony = 5
+
+[node name="SoundCheckbox" type="CheckButton" parent="TileMap"]
+offset_left = 209.0
+offset_top = 208.0
+offset_right = 291.0
+offset_bottom = 232.0
+scale = Vector2(0.51, 0.51)
+theme = SubResource("Theme_5hpxm")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_g4w5y")
+button_pressed = true
+text = "Sound"
+
+[node name="BorderEmpty" type="Sprite2D" parent="."]
+position = Vector2(127, 128)
+texture = ExtResource("16_aoedm")
+
+[node name="LinesLabel" type="Label" parent="."]
+offset_left = 88.0
+offset_top = 8.0
+offset_right = 176.0
+offset_bottom = 24.0
+theme = SubResource("Theme_d5o15")
+text = "Lines: 0
+"
+script = ExtResource("17_x6twh")
+
+[node name="LevelLabel" type="Label" parent="."]
+offset_left = 8.0
+offset_top = 48.0
+offset_right = 96.0
+offset_bottom = 62.0
+theme = SubResource("Theme_7twqa")
+text = "Level: 0
+"
+script = ExtResource("18_wmyot")
+
+[node name="NextBlockLabel" type="Label" parent="."]
+offset_left = 176.0
+offset_top = 48.0
+offset_right = 264.0
+offset_bottom = 62.0
+theme = SubResource("Theme_7twqa")
+text = "Next Block:
+"
+script = ExtResource("18_wmyot")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 88.0
+offset_top = 24.0
+offset_right = 176.0
+offset_bottom = 38.0
+theme = SubResource("Theme_7twqa")
+text = "Score: 0
+"
+script = ExtResource("19_qhblf")
+
+[connection signal="lines_cleared" from="TileMap" to="LinesLabel" method="_on_lines_cleared"]
+[connection signal="lines_cleared" from="TileMap" to="LevelLabel" method="_on_lines_cleared"]

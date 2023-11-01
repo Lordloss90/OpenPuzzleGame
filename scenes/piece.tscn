@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://176sbvua7a5x"]
+
+[ext_resource type="Script" path="res://scripts/Piece.gd" id="1_p0xcg"]
+[ext_resource type="Script" path="res://scripts/fall_down_timer.gd" id="2_qgu00"]
+
+[node name="Piece" type="Node2D"]
+script = ExtResource("1_p0xcg")
+
+[node name="fall_down_timer" type="Timer" parent="."]
+autostart = true
+script = ExtResource("2_qgu00")
+
+[node name="horizontal_timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="vertical_timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="fall_down_timer" to="." method="_fall_down_timer_timeout"]
+[connection signal="timeout" from="horizontal_timer" to="." method="_on_horizontal_timer_timeout"]
+[connection signal="timeout" from="vertical_timer" to="." method="_on_vertical_timer_timeout"]
