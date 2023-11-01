@@ -197,7 +197,7 @@ volume_db = -17.0
 
 [node name="GameEndPlayer" type="AudioStreamPlayer" parent="TileMap"]
 stream = ExtResource("15_ib4oy")
-volume_db = -15.0
+volume_db = -17.0
 max_polyphony = 5
 
 [node name="SoundCheckbox" type="CheckButton" parent="TileMap"]
